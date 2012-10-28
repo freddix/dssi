@@ -1,7 +1,7 @@
 Summary:	Disposable Soft Synth Interface specification
 Name:		dssi
 Version:	1.1.1
-Release:	1
+Release:	2
 License:	LGPL v2.1
 Group:		Development/Libraries
 Source0:	http://downloads.sourceforge.net/dssi/%{name}-%{version}.tar.gz
@@ -29,6 +29,13 @@ an RFC which describes the background for the proposal and defines the
 OSC part of the specification, and a documented header file which
 defines the C API.
 
+%package common
+Summary:	Common environment for DSSI plugins
+Group:		Libraries
+
+%description common
+Common environment for DSSI plugins.
+
 %package host-jack
 Summary:	A simple JACK/ALSA-sequencer plugin host
 Group:		Applications/Sound
@@ -49,6 +56,7 @@ A simple JACK/ALSA-sequencer plugin host.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_libdir}/dssi
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -61,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog README doc/TODO doc/*.txt
 %{_includedir}/dssi.h
 %{_pkgconfigdir}/dssi.pc
+
+%files common
+%defattr(644,root,root,755)
+%dir %{_libdir}/dssi
 
 %files host-jack
 %defattr(644,root,root,755)
